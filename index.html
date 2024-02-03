@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .col,.row
+        {
+            border: 1px solid black;
+        }
+        .button
+        {
+            background-color: rgb(75, 72, 72);
+            color: white;
+            margin-top: 3px;
+            border-radius: 3px;
+        }
+        .button-op{
+
+            background-color:aquamarine;
+            color: rgb(0, 0, 0);
+            font-weight: bolder;
+            margin-top: 3px;
+            border-radius: 3px;
+        }
+        .button:hover ,.button-op:hover
+        {
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+ <body>
+    <header>
+    <center><h3>CALCULATOR</h3></center>
+    </header>
+    
+    <main>
+        <center>
+        <div class="container">
+            <div class="col-md-7">
+                <div class="row">
+                    <form>
+                        <input type="text" id="inputField1" placeholder="first number" >
+                        <input type="text" id="op-input" placeholder="operation" >
+                        <input type="text" id="inputField2" placeholder="second number"> 
+                    </form>
+                </div>
+                <div class="row">
+                    <form >
+                        <input style="border-color: brown; margin: 3px;" id="resultDisplay" type="text" placeholder="result">
+                    </form>
+
+                </div>
+                <div class="row">
+                    <div class="col"><p class="button" onclick="func('7')">7</p></div>
+                    <div class="col"><p class="button" onclick="func('8')">8</p></div>
+                    <div class="col"><p class="button" onclick="func('9')">9</p></div>
+                    <div class="col"><p class="button-op" onclick="func('÷')">÷</p></div>
+                </div>
+                <div class="row">
+                    <div class="col"><p class="button" onclick="func('4')">4</p></div>
+                    <div class="col"><p class="button" onclick="func('5')">5</p></div>
+                    <div class="col"><p class="button" onclick="func('6')">6</p></div>
+                    <div class="col"><p class="button-op" onclick="func('x')">x</p></div>
+                </div>
+                <div class="row">
+                    <div class="col"><p class="button" onclick="func('1')">1</p></div>
+                    <div class="col"><p class="button" onclick="func('2')">2</p></div>
+                    <div class="col"><p class="button" onclick="func('3')">3</p></div>
+                    <div class="col"><p class="button-op" onclick="func('-')">-</p></div>
+                </div>
+                <div class="row">
+                    <div class="col"><p class="button" ></p></div>
+                    <div class="col"><p class="button" onclick="func('0')">0</p></div>
+                    <div class="col"><p class="button-op" onclick="calculate('=')">=</p></div> <!--to give result-->
+                    <div class="col"><p class="button-op" onclick="func('+')">+</p></div>
+                </div>
+            </div>
+        </div>
+        <p>
+            NOTE: Mind that this is a single digit CALCULATOR
+
+        </p>
+    </center>
+    
+    
+    
+    </main>
+    <script>
+        
+        
+        var result=0;
+        var check1='';
+        var op_check='';
+        var check2='';
+        
+        function func(value)
+        {
+            
+            if(check1=='' && value!='+' && value!='-' && value!='x' && value!='÷')
+            {   
+                document.getElementById("inputField1").value=value;
+                check1=value;
+            }
+            else if(op_check=='' && (value=='+' || value=='-' || value=='x' || value=='÷'))
+            {
+                document.getElementById("op-input").value=value;   
+                op_check=value;
+            }
+            else if(check2=='' && value!='+' && value!='-' && value!='x' && value!='÷')
+            {
+                document.getElementById("inputField2").value=value;
+                check2=value;
+            }
+            else if(check1!='' && op_check!='' && check2!='' )
+            {   //if all are full then rewrite first number and clear out  operator and second number
+                
+                document.getElementById("inputField1").value=value;
+                
+                op_check='';
+                document.getElementById("op-input").value=op_check;
+                check2='';
+                document.getElementById("inputField2").value=check2; //to clear out second number
+                
+                //to clear out result, if any
+                document.getElementById("resultDisplay").value='';
+            }
+
+
+        }
+
+        function calculate(equalto)
+        { 
+            if(equalto=="=" && check1!='' && op_check!='' && check2!='')
+            {
+                switch(op_check)
+                {
+                    case '+':   result=parseInt(check1)+parseInt(check2);
+                                document.getElementById("resultDisplay").value=result;
+                                break;
+                    case '-':   result=parseInt(check1)-parseInt(check2);
+                                document.getElementById("resultDisplay").value=result;
+                                break;
+                    case 'x':   result=parseInt(check1)*parseInt(check2);
+                                document.getElementById("resultDisplay").value=result;
+                                break;
+                    case '÷':   result=parseInt(check1)/parseInt(check2);
+                                document.getElementById("resultDisplay").value=result;
+                                break;
+                    default: document.write("kindly enter a valid input");         
+                }
+                check1='';
+                check2='';
+                op_check='';    //resetting everything or else interference ocuurs in next calculation
+                result='';
+
+            }
+
+
+        }
+        
+    </script>
+
+</body>
+
+   
+    </body>
+</html>
